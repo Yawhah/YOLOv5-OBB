@@ -1,0 +1,33 @@
+#VS2015
+#pytorch 1.6.0
+#torchvision 0.7.0
+
+
+
+conda create -n yolov5 python=3.8
+conda activate yolov5
+conda install pytorch=1.6.0 torchvision cudatoolkit=10.1 -c pytorch
+
+1、pip install -r requirements.txt
+
+2、安装pycocotools
+   cd pycocotools-2.0.2
+   python setup.py build_ext install
+   
+3、添加E:\PytorchPro\YOLOv5_DOTA_OBB-master\swigwin-4.0.2到path里面，进入utils运行
+   swig -c++ -python polyiou.i
+   python setup.py build_ext --inplace
+   
+4、E:\ProgramData\Anaconda3\envs\yolov5\Lib\site-packages\shapely\DLLs所有dll复制到E:\ProgramData\Anaconda3\envs\yolov5\Library\bin
+
+5、准备数据集，看https://www.bilibili.com/video/BV1jX4y1M7ga?from=search&seid=3346162284021631763
+
+6、进入DOTA_devkit_YOLO-master，修改DOTA_devkit_YOLO-master\dota_utils.py中的classnames_v1_5 ，运行PaddingPIC.py和YOLO_Transform.py
+
+7、修改data\DOTA_ROTATED.yaml中nc和names
+
+8、修改data\hyp.scratch.yaml学习率
+
+9、python train.py  --batch-size 2 --device 0 
+
+10、python detect.py --source 1_0_0.png --weights .\runs\exp0\weights\best.pt --view-img
